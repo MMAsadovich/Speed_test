@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Speed</string>
+    <string name="title_home">Network Test</string>
+    <string name="title_dashboard">Location</string>
+    <string name="title_notifications">Location Two</string>
+    <string name="test">Test</string>
+</resources>
