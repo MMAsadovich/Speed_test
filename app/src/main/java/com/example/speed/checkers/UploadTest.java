@@ -1,4 +1,4 @@
-package com.example.speed.ui.home;
+package com.example.speed.checkers;
 
 public class UploadTest extends Thread {
 

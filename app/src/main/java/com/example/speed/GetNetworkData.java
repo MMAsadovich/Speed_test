@@ -12,7 +12,7 @@ public class GetNetworkData extends Thread {
 
     double getLat = 0.0;
     double getLon = 0.0;
-    boolean finished = false;
+    boolean con = false;
     HashMap<Integer,String> mapAddress = new HashMap<>();
     HashMap<Integer,List<String>> addressValue = new HashMap<>();
     /* example
@@ -28,13 +28,33 @@ public class GetNetworkData extends Thread {
         */
     String urlAddress = "";
     String latitude = "";
-    String lon = "";
+    String longitude = "";
     String name = "";
     String country = "";
     String cc = "";
     String sponsor = "";
     //String id = "";
     String host = "";
+
+    public  HashMap<Integer, String> getMapAddress() {
+        return mapAddress;
+    }
+
+    public HashMap<Integer, List<String>> getAddressValue() {
+        return addressValue;
+    }
+
+    public double getGetLat() {
+        return getLat;
+    }
+
+    public double getGetLon() {
+        return getLon;
+    }
+
+    public boolean isNetConnect() {
+        return con;
+    }
 
     @Override
     public void run() {
@@ -43,7 +63,7 @@ public class GetNetworkData extends Thread {
         //get data
         int key = 0;
         addData(key);
-        finished = true;
+        con = true;
     }
     private void addData(int key){
         try {
@@ -61,14 +81,14 @@ public class GetNetworkData extends Thread {
 
                         urlAddress = text.split("server url=\"")[1].split("\"")[0];
                         latitude = text.split("lat=\"")[1].split("\"")[0];
-                        lon = text.split("lon=\"")[1].split("\"")[0];
+                        longitude = text.split("lon=\"")[1].split("\"")[0];
                         name = text.split("name=\"")[1].split("\"")[0];
                         country = text.split("country=\"")[1].split("\"")[0];
                         cc = text.split("cc=\"")[1].split("\"")[0];
                         sponsor = text.split("sponsor=\"")[1].split("\"")[0];
                         host = text.split("host=\"")[1].split("\"")[0];
 
-                        List<String> list = Arrays.asList(latitude, lon, name, country, cc, sponsor, host);
+                        List<String> list = Arrays.asList(latitude, longitude, name, country, cc, sponsor, host);
                         mapAddress.put(key, urlAddress);
                         addressValue.put(key, list);
                         key++;

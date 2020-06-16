@@ -1,4 +1,4 @@
-package com.example.speed.ui.home;
+package com.example.speed.checkers;
 
 import android.widget.TextView;
 
