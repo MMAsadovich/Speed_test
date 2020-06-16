@@ -105,9 +105,8 @@ public class GetNetworkData extends Thread {
                 }
                 br.close();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
