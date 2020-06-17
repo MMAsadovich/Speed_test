@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.speed.checkers.Checker;
+import com.example.speed.checkers.DownloadTest;
 import com.example.speed.component.ControlTextView;
 import com.example.speed.component.ControlView;
 import com.example.speed.checkers.PingTest;
@@ -72,25 +74,21 @@ public class MainActivity extends AppCompatActivity {
                     getNetworkData.start();
                 }
 
+                /*while (!getNetworkData.con){
 
-
-                while (!getNetworkData.con){
-
-                }
+                }*/
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView uploadId = findViewById(R.id.uploadId);
-                        TextView downloadId = findViewById(R.id.downloadId);
                         ControlView pingTextView = new ControlTextView((TextView) findViewById(R.id.pingId));
-                        ControlView upload = new ControlTextView(uploadId);
-                        ControlView download = new ControlTextView(downloadId);
+                        ControlView upload = new ControlTextView((TextView) findViewById(R.id.uploadId));
+                        ControlView downloadTextView = new ControlTextView((TextView) findViewById(R.id.downloadId));
 
                         // Todo check network
                         pingTextView.resetValues("0 ms");
                         upload.resetValues("0 Mbps");
-                        download.resetValues("0 Mbps");
+                        downloadTextView.resetValues("0 Mbps");
 
                         HashMap<Integer, String> mapKey = getNetworkData.getMapAddress();
                         HashMap<Integer, List<String>> mapValue = getNetworkData.getAddressValue();
@@ -98,10 +96,8 @@ public class MainActivity extends AppCompatActivity {
                         double selfLon = getNetworkData.getLon;
                         double tmp = Integer.MAX_VALUE;
                         //double dist = 0.0;
-                        List<Integer> indexList = new ArrayList<>();
-                        List<Double> distances = new ArrayList<>();
 
-                        Integer findServerIndex = 0;
+                        int findServerIndex = 0;
                         for (int index : mapKey.keySet()) {
 
                             Location source = new Location("Source");
@@ -120,20 +116,19 @@ public class MainActivity extends AppCompatActivity {
                                 //dist = distance;
                                 findServerIndex = index;
                             }
-
                         }
 
-                        //String testAddr = mapKey.get(findServerIndex).replace("http://", "https://");
+                        String testAddr = mapKey.get(findServerIndex).replace("http://", "https://");
                         final List<String> info = mapValue.get(findServerIndex);
-                        final List<Double> pingList = new ArrayList<>();
-                        //final List<Double> downloadList = new ArrayList<>();
-                        //final List<Double> uploadList = new ArrayList<>();
 
                         List<Checker> checkerList = new ArrayList<>();
                         final PingTest pingTest = new PingTest(info.get(6).replace(":8080", ""), 7, pingTextView);
+                        final DownloadTest downloadTest = new DownloadTest(testAddr.replace(testAddr.split("/")[testAddr.split("/").length - 1]/*=upload.php*/, ""),downloadTextView);
+                        //https://tur-st-01.kcell.kz:8080/speedtest/upload.php
+                        //https://tur-st-01.kcell.kz:8080/speedtest/
 
                         checkerList.add(pingTest);
-
+                        checkerList.add(downloadTest);
 
                         ThreadScheduler threadScheduler = new ThreadScheduler(startButton);
                         try {
@@ -141,18 +136,9 @@ public class MainActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
-
-
                     }
                 }).start();
-
             }
-
-
         });
     }
 }
-
-
-

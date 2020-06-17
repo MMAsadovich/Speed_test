@@ -44,17 +44,6 @@ public class GetNetworkData extends Thread {
         return addressValue;
     }
 
-    public double getGetLat() {
-        return getLat;
-    }
-
-    public double getGetLon() {
-        return getLon;
-    }
-
-    public boolean isNetConnect() {
-        return con;
-    }
 
     @Override
     public void run() {

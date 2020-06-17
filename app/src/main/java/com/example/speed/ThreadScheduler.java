@@ -9,7 +9,7 @@ import com.example.speed.checkers.Checker;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    ThreadScheduler {
+public class ThreadScheduler {
 
     private Button button;
 
@@ -28,11 +28,11 @@ public class    ThreadScheduler {
             }
         }
 
-//        new Handler(Looper.getMainLooper()).post(new Runnable() {
-//            public void run() {
-//                button.setEnabled(true);
-//            }
-//        });
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            public void run() {
+                button.setEnabled(true);
+            }
+        });
 
 
     }
